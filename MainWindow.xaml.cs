@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace Tapper
 {
-
+    enum GameState {SplashScreen, GameOn, GameOver }
     /*
      * Credits:
      * Pine Apple Rag (Scott Joplin piano roll) by Scott Joplin is licensed under a Attribution-NonCommercial-ShareAlike License.
@@ -32,6 +32,11 @@ namespace Tapper
         MediaPlayer musicPlayer = new MediaPlayer();
         System.Windows.Threading.DispatcherTimer gameTimer = new System.Windows.Threading.DispatcherTimer();
         int counter = 0;
+        Background background;
+        GameState gameState;
+        int lives;
+        int level;
+        Player player;
 
         public MainWindow()
         {
@@ -43,13 +48,35 @@ namespace Tapper
             gameTimer.Start();
             //start music
             musicPlayer.Open(new Uri("tapperSong.mp3", UriKind.Relative));
-         //   musicPlayer.Play();
+            //   musicPlayer.Play();
+            background = new Tapper.Background(canvas, this);
+            gameState = GameState.SplashScreen;
         }
 
+        private void setupGame()
+        {
+            lives = 3;
+            level = 0;
+            gameState = GameState.GameOn;
+            player = new Player(canvas, this);
+        }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            counter++;
-            this.Title = counter.ToString();
+            if (gameState == GameState.SplashScreen)
+            {
+                this.Title = "Splash Screen";
+                if (Keyboard.IsKeyDown(Key.Enter)) {
+                    setupGame();
+                }
+            }
+            else if (gameState == GameState.GameOn)
+            {
+                this.Title = "Game on: Lives: " + lives.ToString();
+            }
+            else if (gameState == GameState.GameOver)
+            {
+                this.Title = "Game Over";
+            }
         }
     }
 }
