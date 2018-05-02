@@ -16,7 +16,7 @@ using System.Windows.Threading;
 
 namespace Tapper
 {
-    class patron
+    class Patron
     {
         Point[] parray = { new Point(200, 75), new Point(141, 184), new Point(79, 293), new Point(19, 402) };
         Point pos;
