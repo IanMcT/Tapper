@@ -21,7 +21,7 @@ namespace Tapper
         {
             canvas = c;
             window = w;
-            point = new Point(0, 0);
+            point = new Point(810, 406);
             playerRectangle = new Rectangle();
             playerRectangle.Fill = Brushes.White;
             playerRectangle.Width = 100;
@@ -29,6 +29,14 @@ namespace Tapper
             canvas.Children.Add(playerRectangle);
             Canvas.SetTop(playerRectangle, point.Y);
             Canvas.SetLeft(playerRectangle, point.X);
+        }
+        public void update()
+        {
+            if (Keyboard.IsKeyDown(Key.Up))
+            {
+                point = new Point(point.X, point.Y - 100);
+                Canvas.SetTop(playerRectangle, point.Y);
+            }
         }
 
 
