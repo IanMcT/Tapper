@@ -13,8 +13,7 @@ namespace Tapper
 {
     class Player
     {
-        int upCount = 0;
-        int downCount = 0;
+        int counter = 0;
         Point point;
         Canvas canvas;
         Window window;
@@ -35,11 +34,21 @@ namespace Tapper
         }
         public void update()
         {
-            if (upCount > 0)
+            if (counter > 0)
             {
                 if (Keyboard.IsKeyUp(Key.Up))
                 {
-                    upCount = 0;
+                    if (Keyboard.IsKeyUp(Key.Down))
+                    {
+                        counter = 0;
+                    }
+                }
+                if (Keyboard.IsKeyUp(Key.Down))
+                {
+                    if (Keyboard.IsKeyUp(Key.Up))
+                    {
+                        counter = 0;
+                    }
                 }
             }
             else
@@ -49,14 +58,15 @@ namespace Tapper
                     point = new Point(point.X - 60, point.Y - 107);
                     Canvas.SetTop(playerRectangle, point.Y);
                     Canvas.SetLeft(playerRectangle, point.X);
-                    upCount++;
+                    counter++;
                 }
-                /*if (Keyboard.IsKeyDown(Key.Down))
+                if (Keyboard.IsKeyDown(Key.Down))
                 {
                     point = new Point(point.X + 60, point.Y + 107);
                     Canvas.SetTop(playerRectangle, point.Y);
                     Canvas.SetLeft(playerRectangle, point.X);
-                }*/
+                    counter++;
+                }
             }
         }
 
