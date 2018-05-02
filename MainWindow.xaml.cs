@@ -72,6 +72,13 @@ namespace Tapper
             else if (gameState == GameState.GameOn)
             {
                 this.Title = "Game on: Lives: " + lives.ToString();
+                player.update();
+
+                //copy where the mouse was clicked so I can paste into notepad for getting locations
+                if (Mouse.LeftButton == MouseButtonState.Pressed)
+                {
+                    Clipboard.SetText(Mouse.GetPosition(this).ToString());
+                }
             }
             else if (gameState == GameState.GameOver)
             {
