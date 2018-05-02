@@ -28,16 +28,16 @@ namespace Tapper
         Window window;
         Rectangle sprite = new Rectangle();
         Random r = new Random();
-        public patron(Canvas c,Window w,int levelnum)
+        public Patron(Canvas c, Window w, int levelnum)
         {
-            delayAmount = 60/levelnum;
+            delayAmount = 60 / levelnum;
             canvas = c;
             window = w;
             barNum = r.Next(0, 4);
             pos = parray[barNum];
             sprite.Height = size;
             sprite.Width = size;
-            ImageBrush darth = new ImageBrush(new BitmapImage(new Uri("darth.png")));
+            ImageBrush darth = new ImageBrush(new BitmapImage(new Uri("darth.png",UriKind.Relative)));
             sprite.Fill = darth;
             Canvas.SetTop(sprite, pos.Y);
             Canvas.SetLeft(sprite, pos.X);
@@ -46,7 +46,7 @@ namespace Tapper
         public void update()
         {
             delay++;
-            if(delay>=delayAmount)
+            if (delay >= delayAmount)
             {
                 delay = 0;
                 pos.X += size;
@@ -55,3 +55,4 @@ namespace Tapper
         }
     }
 }
+
