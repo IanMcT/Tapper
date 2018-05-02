@@ -37,7 +37,7 @@ namespace Tapper
             pos = parray[barNum];
             sprite.Height = size;
             sprite.Width = size;
-            ImageBrush darth = new ImageBrush(new BitmapImage(new Uri("E:/darth.png")));
+            ImageBrush darth = new ImageBrush(new BitmapImage(new Uri("darth.png")));
             sprite.Fill = darth;
             Canvas.SetTop(sprite, pos.Y);
             Canvas.SetLeft(sprite, pos.X);
