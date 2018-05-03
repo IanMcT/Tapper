@@ -19,7 +19,7 @@ namespace Tapper
         Canvas canvas;
         Window window;
         Rectangle sprite = new Rectangle();
-
+ 
         public Drink(Canvas c, Window w, double xLevel, double yLevel)
         {
             canvas = c;

@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace Tapper
 {
-    enum GameState {SplashScreen, GameOn, GameOver }
+    enum GameState { SplashScreen, GameOn, GameOver }
     /*
      * Credits:
      * Pine Apple Rag (Scott Joplin piano roll) by Scott Joplin is licensed under a Attribution-NonCommercial-ShareAlike License.
@@ -37,23 +37,15 @@ namespace Tapper
         int lives;
         int level;
         Player player;
-<<<<<<< HEAD
-<<<<<<< HEAD
         List<Patron> patrons = new List<Patron>();
         List<Drink> drinks = new List<Drink>();
         static MainWindow w;
-=======
-=======
->>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
-
->>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
         public MainWindow()
         {
             InitializeComponent();
-            Console.WriteLine("good");
             //start Timer
             gameTimer.Tick += gameTimer_Tick;
-            gameTimer.Interval = new TimeSpan(0, 0,0,0,1000/60);//fps
+            gameTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000 / 60);//fps
             gameTimer.Start();
             //start music
             musicPlayer.Open(new Uri("tapperSong.mp3", UriKind.Relative));
@@ -69,13 +61,16 @@ namespace Tapper
             level = 0;
             gameState = GameState.GameOn;
             player = new Player(canvas, this);
+            patrons.RemoveRange(0, patrons.Count);
+            patrons.Add(new Patron(canvas, this, 1));
         }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             if (gameState == GameState.SplashScreen)
             {
                 this.Title = "Splash Screen";
-                if (Keyboard.IsKeyDown(Key.Enter)) {
+                if (Keyboard.IsKeyDown(Key.Enter))
+                {
                     setupGame();
                 }
             }
@@ -83,8 +78,6 @@ namespace Tapper
             {
                 this.Title = "Game on: Lives: " + lives.ToString();
                 player.update();
-<<<<<<< HEAD
-<<<<<<< HEAD
                 foreach (Patron p in patrons)
                 {
                     p.update();
@@ -93,10 +86,6 @@ namespace Tapper
                 {
                     d.update();
                 }
-=======
->>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
-=======
->>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
 
                 //copy where the mouse was clicked so I can paste into notepad for getting locations
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
