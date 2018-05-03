@@ -13,8 +13,9 @@ namespace Tapper
 {
     class Player
     {
+        Point playerPos = new Point();
         int counter = 0;
-        Point point;
+        Point point = new Point(0, 0);
         Canvas canvas;
         Window window;
         Rectangle playerRectangle;
@@ -26,32 +27,26 @@ namespace Tapper
             point = new Point(810, 406);
             playerRectangle = new Rectangle();
             playerRectangle.Fill = Brushes.White;
-            playerRectangle.Width = 100;
             playerRectangle.Height = 100;
+            playerRectangle.Width = 100;
             canvas.Children.Add(playerRectangle);
             Canvas.SetTop(playerRectangle, point.Y);
             Canvas.SetLeft(playerRectangle, point.X);
         }
         public void update()
         {
-            if (counter > 0)
+            if (playerPos == new Point(630, 85))
             {
-                if (Keyboard.IsKeyUp(Key.Up))
+                if (Keyboard.IsKeyDown(Key.Down))
                 {
-                    if (Keyboard.IsKeyUp(Key.Down))
-                    {
-                        counter = 0;
-                    }
-                }
-                if (Keyboard.IsKeyUp(Key.Down))
-                {
-                    if (Keyboard.IsKeyUp(Key.Up))
-                    {
-                        counter = 0;
-                    }
+                    point = new Point(point.X + 60, point.Y + 107);
+                    Canvas.SetTop(playerRectangle, point.Y);
+                    Canvas.SetLeft(playerRectangle, point.X);
+                    counter++;
+                    playerPos = point;
                 }
             }
-            else
+            else if (playerPos == new Point(810, 406))
             {
                 if (Keyboard.IsKeyDown(Key.Up))
                 {
@@ -59,17 +54,48 @@ namespace Tapper
                     Canvas.SetTop(playerRectangle, point.Y);
                     Canvas.SetLeft(playerRectangle, point.X);
                     counter++;
+                    playerPos = point;
                 }
-                if (Keyboard.IsKeyDown(Key.Down))
+            }
+            else
+            {
+                if (counter > 0)
                 {
-                    point = new Point(point.X + 60, point.Y + 107);
-                    Canvas.SetTop(playerRectangle, point.Y);
-                    Canvas.SetLeft(playerRectangle, point.X);
-                    counter++;
+                    if (Keyboard.IsKeyUp(Key.Up))
+                    {
+                        if (Keyboard.IsKeyUp(Key.Down))
+                        {
+                            counter = 0;
+                        }
+                    }
+                    if (Keyboard.IsKeyUp(Key.Down))
+                    {
+                        if (Keyboard.IsKeyUp(Key.Up))
+                        {
+                            counter = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    if (Keyboard.IsKeyDown(Key.Up))
+                    {
+                        point = new Point(point.X - 60, point.Y - 107);
+                        Canvas.SetTop(playerRectangle, point.Y);
+                        Canvas.SetLeft(playerRectangle, point.X);
+                        counter++;
+                        playerPos = point;
+                    }
+                    if (Keyboard.IsKeyDown(Key.Down))
+                    {
+                        point = new Point(point.X + 60, point.Y + 107);
+                        Canvas.SetTop(playerRectangle, point.Y);
+                        Canvas.SetLeft(playerRectangle, point.X);
+                        counter++;
+                        playerPos = point;
+                    }
                 }
             }
         }
-
-
     }
 }
