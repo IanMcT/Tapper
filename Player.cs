@@ -13,6 +13,8 @@ namespace Tapper
 {
     class Player
     {
+        //Global variables
+        Point playerPos = new Point();
         int counter = 0;
         private Point point;
         public Point Point { get => point;  }
@@ -22,37 +24,33 @@ namespace Tapper
 
         public Player(Canvas c, Window w)
         {
+            //Generate player
             canvas = c;
             window = w;
             point = new Point(810, 406);
+            playerPos = point;
             playerRectangle = new Rectangle();
             playerRectangle.Fill = Brushes.White;
-            playerRectangle.Width = 100;
             playerRectangle.Height = 100;
+            playerRectangle.Width = 100;
             canvas.Children.Add(playerRectangle);
             Canvas.SetTop(playerRectangle, point.Y);
             Canvas.SetLeft(playerRectangle, point.X);
         }
         public void update()
         {
-            if (counter > 0)
+            if (playerPos == new Point(630, 85)) //block on ascension to infinity
             {
-                if (Keyboard.IsKeyUp(Key.Up))
+                if (Keyboard.IsKeyDown(Key.Down))
                 {
-                    if (Keyboard.IsKeyUp(Key.Down))
-                    {
-                        counter = 0;
-                    }
-                }
-                if (Keyboard.IsKeyUp(Key.Down))
-                {
-                    if (Keyboard.IsKeyUp(Key.Up))
-                    {
-                        counter = 0;
-                    }
+                    point = new Point(point.X + 60, point.Y + 107);
+                    Canvas.SetTop(playerRectangle, point.Y);
+                    Canvas.SetLeft(playerRectangle, point.X);
+                    counter++;
+                    playerPos = point;
                 }
             }
-            else
+            else if (playerPos == new Point(810, 406)) //block on decesion to infinity
             {
                 if (Keyboard.IsKeyDown(Key.Up))
                 {
@@ -60,13 +58,46 @@ namespace Tapper
                     Canvas.SetTop(playerRectangle, point.Y);
                     Canvas.SetLeft(playerRectangle, point.X);
                     counter++;
+                    playerPos = point;
                 }
-                if (Keyboard.IsKeyDown(Key.Down))
+            }
+            else //General movement
+            {
+                if (counter > 0) //Prevent constant movement
                 {
-                    point = new Point(point.X + 60, point.Y + 107);
-                    Canvas.SetTop(playerRectangle, point.Y);
-                    Canvas.SetLeft(playerRectangle, point.X);
-                    counter++;
+                    if (Keyboard.IsKeyUp(Key.Up))
+                    {
+                        if (Keyboard.IsKeyUp(Key.Down))
+                        {
+                            counter = 0;
+                        }
+                    }
+                    if (Keyboard.IsKeyUp(Key.Down))
+                    {
+                        if (Keyboard.IsKeyUp(Key.Up))
+                        {
+                            counter = 0;
+                        }
+                    }
+                }
+                else //Re-installs player up or down depending on input
+                {
+                    if (Keyboard.IsKeyDown(Key.Up))
+                    {
+                        point = new Point(point.X - 60, point.Y - 107);
+                        Canvas.SetTop(playerRectangle, point.Y);
+                        Canvas.SetLeft(playerRectangle, point.X);
+                        counter++;
+                        playerPos = point;
+                    }
+                    if (Keyboard.IsKeyDown(Key.Down))
+                    {
+                        point = new Point(point.X + 60, point.Y + 107);
+                        Canvas.SetTop(playerRectangle, point.Y);
+                        Canvas.SetLeft(playerRectangle, point.X);
+                        counter++;
+                        playerPos = point;
+                    }
                 }
                 if(Keyboard.IsKeyDown(Key.Space))
                 {
@@ -75,6 +106,5 @@ namespace Tapper
                 }
             }
         }
-
     }
 }
