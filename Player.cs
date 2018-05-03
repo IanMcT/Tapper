@@ -39,6 +39,7 @@ namespace Tapper
             {
                 if (Keyboard.IsKeyDown(Key.Down))
                 {
+                    //add code to prevent it from going down if you hit down as the first key.
                     point = new Point(point.X + 60, point.Y + 107);
                     Canvas.SetTop(playerRectangle, point.Y);
                     Canvas.SetLeft(playerRectangle, point.X);
