@@ -14,10 +14,13 @@ namespace Tapper
     class Player
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         int counter = 0;
         private Point point;
         public Point Point { get => point;  }
 =======
+=======
+>>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
         int upCount = 0;
         int downCount = 0;
         Point point;
@@ -63,6 +66,7 @@ namespace Tapper
                     Canvas.SetTop(playerRectangle, point.Y);
                     Canvas.SetLeft(playerRectangle, point.X);
 <<<<<<< HEAD
+<<<<<<< HEAD
                     counter++;
                 }
                 if(Keyboard.IsKeyDown(Key.Space))
@@ -70,6 +74,9 @@ namespace Tapper
                     MainWindow.addDrink();
                     counter++;
                 }
+=======
+                }*/
+>>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
 =======
                 }*/
 >>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master

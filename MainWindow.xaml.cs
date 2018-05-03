@@ -38,10 +38,13 @@ namespace Tapper
         int level;
         Player player;
 <<<<<<< HEAD
+<<<<<<< HEAD
         List<Patron> patrons = new List<Patron>();
         List<Drink> drinks = new List<Drink>();
         static MainWindow w;
 =======
+=======
+>>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
 
 >>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
         public MainWindow()
@@ -81,6 +84,7 @@ namespace Tapper
                 this.Title = "Game on: Lives: " + lives.ToString();
                 player.update();
 <<<<<<< HEAD
+<<<<<<< HEAD
                 foreach (Patron p in patrons)
                 {
                     p.update();
@@ -89,6 +93,8 @@ namespace Tapper
                 {
                     d.update();
                 }
+=======
+>>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
 =======
 >>>>>>> parent of f5b82df... Merge pull request #1 from IanMcT/master
 
