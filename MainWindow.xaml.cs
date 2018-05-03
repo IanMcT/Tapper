@@ -38,11 +38,12 @@ namespace Tapper
         int level;
         Player player;
         List<Patron> patrons = new List<Patron>();
-
+        List<Drink> drinks = new List<Drink>();
+        static MainWindow w;
         public MainWindow()
         {
             InitializeComponent();
-
+            Console.WriteLine("good");
             //start Timer
             gameTimer.Tick += gameTimer_Tick;
             gameTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000 / 60);//fps
@@ -52,6 +53,7 @@ namespace Tapper
             //   musicPlayer.Play();
             background = new Tapper.Background(canvas, this);
             gameState = GameState.SplashScreen;
+            w = this;
         }
 
         private void setupGame()
@@ -81,6 +83,10 @@ namespace Tapper
                 {
                     p.update();
                 }
+                foreach(Drink d in drinks)
+                {
+                    d.update();
+                }
 
                 //copy where the mouse was clicked so I can paste into notepad for getting locations
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
@@ -92,6 +98,11 @@ namespace Tapper
             {
                 this.Title = "Game Over";
             }
+        }
+
+        public static void addDrink()
+        {
+            w.drinks.Add(new Drink(w.canvas, w, w.player.Point.X, w.player.Point.Y));
         }
     }
 }
