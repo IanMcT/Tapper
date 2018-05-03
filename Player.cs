@@ -16,7 +16,8 @@ namespace Tapper
         //Global variables
         Point playerPos = new Point();
         int counter = 0;
-        Point point = new Point(0, 0);
+        private Point point;
+        public Point Point { get => point;  }
         Canvas canvas;
         Window window;
         Rectangle playerRectangle;
@@ -97,6 +98,11 @@ namespace Tapper
                         counter++;
                         playerPos = point;
                     }
+                }
+                if(Keyboard.IsKeyDown(Key.Space))
+                {
+                    MainWindow.addDrink();
+                    counter++;
                 }
             }
         }
