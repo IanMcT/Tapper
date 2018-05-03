@@ -53,6 +53,63 @@ namespace Tapper
                 Canvas.SetLeft(sprite, pos.X);
             }
         }
+        
+        public bool checkIfAtEnd()
+        {
+            if (barNum == 0)
+            {
+                if (pos.X >= 593)
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+            else if (barNum == 1)
+            {
+                if (pos.X >= 630)
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+            else if (barNum == 2)
+            {
+                if (pos.X >= 710)
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+            else
+            {
+                if (pos.X >= 770)
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+
+
+        }
     }
 }
 
