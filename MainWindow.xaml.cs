@@ -108,10 +108,5 @@ namespace Tapper
         {
             this.drinks.Add(new Drink(this.canvas, this, this.player.Point.X, this.player.Point.Y));
         }
-
-        /*public static void addDrink()
-        {
-            w.drinks.Add(new Drink(w.canvas, w, w.player.Point.X, w.player.Point.Y));
-        }*/
     }
 }
