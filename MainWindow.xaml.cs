@@ -36,6 +36,7 @@ namespace Tapper
         GameState gameState;
         int lives;
         int level;
+        bool atEnd;
         Player player;
         List<Patron> patrons = new List<Patron>();
         List<Drink> drinks = new List<Drink>();
@@ -81,7 +82,18 @@ namespace Tapper
                 foreach (Patron p in patrons)
                 {
                     p.update();
+                    atEnd = p.checkIfAtEnd();
                 }
+                
+                if (atEnd == true)
+                {
+                    lives--;
+                    foreach (Patron p in patrons)
+                    {
+                        canvas.Children.Remove(p.sprite);
+                    }
+                }
+                
                 foreach(Drink d in drinks)
                 {
                     d.update();
