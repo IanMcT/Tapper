@@ -19,10 +19,10 @@ namespace Tapper
         private Point point;
         public Point Point { get => point;  }
         Canvas canvas;
-        Window window;
+        MainWindow window;
         Rectangle playerRectangle;
 
-        public Player(Canvas c, Window w)
+        public Player(Canvas c, MainWindow w)
         {
             //Generate player
             canvas = c;
@@ -101,7 +101,7 @@ namespace Tapper
                 }
                 if(Keyboard.IsKeyDown(Key.Space))
                 {
-                    MainWindow.addDrink();
+                    window.addDrink();
                     counter++;
                 }
             }
