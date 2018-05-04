@@ -17,10 +17,11 @@ namespace Tapper
         int size = 50;
         double speed = 2;
         Canvas canvas;
-        Window window;
+        MainWindow window;
         Rectangle sprite = new Rectangle();
- 
-        public Drink(Canvas c, Window w, double xLevel, double yLevel)
+       public Rect boundingBox { get => box; }
+        Rect box;
+        public Drink(Canvas c, MainWindow w, double xLevel, double yLevel)
         {
             canvas = c;
             window = w;
@@ -28,6 +29,7 @@ namespace Tapper
             pos.Y = yLevel;
             sprite.Height = size;
             sprite.Width = size;
+            box = new Rect(pos, new Size(size, size));
             sprite.Fill = new ImageBrush(new BitmapImage(new Uri("Root_beer.png", UriKind.Relative)));
             Canvas.SetTop(sprite, pos.Y);
             Canvas.SetLeft(sprite, pos.X);
@@ -38,6 +40,7 @@ namespace Tapper
         {
                 pos.X -= speed;
                 Canvas.SetLeft(sprite, pos.X);
+                box.X = pos.X;
         }
     }
 }

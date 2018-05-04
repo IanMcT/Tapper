@@ -76,7 +76,7 @@ namespace Tapper
             {
                 this.Title = "Game on: Lives: " + lives.ToString();
                 player.update();
-                foreach (Drink d in drinks)
+                foreach(Drink d in drinks)
                 {
                     d.update();
                 }
