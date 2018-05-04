@@ -76,13 +76,20 @@ namespace Tapper
             {
                 this.Title = "Game on: Lives: " + lives.ToString();
                 player.update();
-                foreach (Patron p in patrons)
-                {
-                    p.update();
-                }
                 foreach(Drink d in drinks)
                 {
                     d.update();
+                }
+                foreach (Patron p in patrons)
+                {
+                    p.update();
+                    foreach(Drink d in drinks)
+                    {
+                        if (p.collidesWith(d))
+                        {
+                            //what to do after collision
+                        }
+                    }
                 }
 
                 //copy where the mouse was clicked so I can paste into notepad for getting locations
