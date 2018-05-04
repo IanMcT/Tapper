@@ -99,12 +99,12 @@ namespace Tapper
                         playerPos = point;
                     }
                 }
+            }
                 if(Keyboard.IsKeyDown(Key.Space))
                 {
                     window.addDrink();
                     counter++;
                 }
-            }
         }
     }
 }
