@@ -36,11 +36,9 @@ namespace Tapper
         GameState gameState;
         int lives;
         int level;
-        bool atEnd;
         Player player;
         List<Patron> patrons = new List<Patron>();
         List<Drink> drinks = new List<Drink>();
-        static MainWindow w;
         public MainWindow()
         {
             InitializeComponent();
@@ -53,7 +51,6 @@ namespace Tapper
             //   musicPlayer.Play();
             background = new Tapper.Background(canvas, this);
             gameState = GameState.SplashScreen;
-            w = this;
         }
 
         private void setupGame()
@@ -79,24 +76,20 @@ namespace Tapper
             {
                 this.Title = "Game on: Lives: " + lives.ToString();
                 player.update();
+                foreach (Drink d in drinks)
+                {
+                    d.update();
+                }
                 foreach (Patron p in patrons)
                 {
                     p.update();
-                    atEnd = p.checkIfAtEnd();
-                }
-                
-                if (atEnd == true)
-                {
-                    lives--;
-                    foreach (Patron p in patrons)
+                    foreach(Drink d in drinks)
                     {
-                        canvas.Children.Remove(p.sprite);
+                        if (p.collidesWith(d))
+                        {
+                            //what to do after collision
+                        }
                     }
-                }
-                
-                foreach(Drink d in drinks)
-                {
-                    d.update();
                 }
 
                 //copy where the mouse was clicked so I can paste into notepad for getting locations
@@ -111,9 +104,14 @@ namespace Tapper
             }
         }
 
-        public static void addDrink()
+        public void addDrink()
+        {
+            this.drinks.Add(new Drink(this.canvas, this, this.player.Point.X, this.player.Point.Y));
+        }
+
+        /*public static void addDrink()
         {
             w.drinks.Add(new Drink(w.canvas, w, w.player.Point.X, w.player.Point.Y));
-        }
+        }*/
     }
 }
