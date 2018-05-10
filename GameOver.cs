@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Controls;
+using System.Windows;
 
-namespace u4_Tapper
+namespace Tapper
 {
     class GameOver
     {
@@ -32,7 +34,7 @@ namespace u4_Tapper
                     string line = streamReader.ReadLine();
                     int temp = line.IndexOf(" ");
                     string pastscore = line.Substring(temp);
-                    
+
 
                     int pastint = Convert.ToInt32(pastscore);
 
@@ -53,7 +55,7 @@ namespace u4_Tapper
                     {
                         //Display high score list
                     }
-                    
+
                 }
             }
             catch
