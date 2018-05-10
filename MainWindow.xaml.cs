@@ -76,22 +76,34 @@ namespace Tapper
             {
                 this.Title = "Game on: Lives: " + lives.ToString();
                 player.update();
-                foreach(Drink d in drinks)
+                foreach (Drink d in drinks)
                 {
                     d.update();
                 }
+                List<Patron> patronsToDelete = new List<Patron>();
                 foreach (Patron p in patrons)
                 {
                     p.update();
-                    foreach(Drink d in drinks)
+                    
+                    foreach (Drink d in drinks)
                     {
                         if (p.collidesWith(d))
                         {
                             //what to do after collision
                         }
                     }
+                    //remove patron and lose life if at end of bar
+                    if (p.checkIfAtEnd())
+                    {
+                        lives--;
+                        p.destroy();
+                        patronsToDelete.Add(p);
+                    }
                 }
-
+                foreach (Patron p in patronsToDelete)
+                {
+                    patrons.Remove(p);
+                }
                 //copy where the mouse was clicked so I can paste into notepad for getting locations
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
                 {
