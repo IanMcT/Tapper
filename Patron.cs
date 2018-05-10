@@ -39,8 +39,8 @@ namespace Tapper
             pos = parray[barNum];
             sprite.Height = size;
             sprite.Width = size;
-            box = new Rect(pos,new Size(size,size));
-            ImageBrush darth = new ImageBrush(new BitmapImage(new Uri("darth.png",UriKind.Relative)));
+            box = new Rect(pos, new Size(size, size));
+            ImageBrush darth = new ImageBrush(new BitmapImage(new Uri("darth.png", UriKind.Relative)));
             sprite.Fill = darth;
             Canvas.SetTop(sprite, pos.Y);
             Canvas.SetLeft(sprite, pos.X);
@@ -64,6 +64,65 @@ namespace Tapper
                 || this.boundingBox.Y > d.boundingBox.Y + d.boundingBox.Height
                 || this.boundingBox.Y + this.boundingBox.Height < d.boundingBox.Y);
         }
-    }
+        public void destroy()
+        {
+            canvas.Children.Remove(sprite);
+        }
+        public bool checkIfAtEnd()
+         {		
+             if (barNum == 0)		
+             {		
+                 if (pos.X >= 593)		
+                 {		
+                     return true;		
+                 }		
+ 		
+                 else		
+                 {		
+                     return false;		
+                 }		
+             }		
+ 		
+             else if (barNum == 1)		
+             {		
+                 if (pos.X >= 630)		
+                 {		
+                     return true;		
+                 }		
+ 		
+                 else		
+                 {		
+                     return false;		
+                 }		
+             }		
+ 		
+             else if (barNum == 2)		
+             {		
+                 if (pos.X >= 710)		
+                 {		
+                     return true;		
+                 }		
+ 		
+                 else		
+                 {		
+                     return false;		
+                 }		
+             }		
+ 		
+             else		
+             {		
+                 if (pos.X >= 770)		
+                 {		
+                     return true;		
+                 }		
+ 		
+                else		
+                {		
+                     return false;		
+                 }		
+            }		
+ 		
+ 		
+         }
+            }
 }
-
