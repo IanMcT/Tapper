@@ -39,6 +39,7 @@ namespace Tapper
         Player player;
         List<Patron> patrons = new List<Patron>();
         List<Drink> drinks = new List<Drink>();
+        Random r = new Random();
         public MainWindow()
         {
             InitializeComponent();
@@ -81,15 +82,22 @@ namespace Tapper
                     d.update();
                 }
                 List<Patron> patronsToDelete = new List<Patron>();
+                List<Drink> drinksToDelete = new List<Drink>();
                 foreach (Patron p in patrons)
                 {
                     p.update();
-                    
+
                     foreach (Drink d in drinks)
                     {
                         if (p.collidesWith(d))
                         {
                             //what to do after collision
+                            d.destroy();
+                            drinksToDelete.Add(d);
+                            if (r.Next(2) == 0) {
+                                p.destroy();
+                                patronsToDelete.Add(p);
+                            }
                         }
                     }
                     //remove patron and lose life if at end of bar
@@ -99,6 +107,9 @@ namespace Tapper
                         p.destroy();
                         patronsToDelete.Add(p);
                     }
+                }
+                foreach (Drink d in drinksToDelete) {
+                    drinks.Remove(d);
                 }
                 foreach (Patron p in patronsToDelete)
                 {
