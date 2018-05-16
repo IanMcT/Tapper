@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +15,16 @@ namespace Tapper
     {
         //Global variables
         Point playerPos = new Point();
+        Boolean previousSpaceBarStatus = false;
         int counter = 0;
         private Point point;
-        public Point Point { get => point;  }
-        Canvas canvas;
-        MainWindow window;
-        Rectangle playerRectangle;
+        public Point Point
+        {
+            get { return point; }
+        }
+            Canvas canvas;
+            MainWindow window;
+            Rectangle playerRectangle;
 
         public Player(Canvas c, MainWindow w)
         {
@@ -100,11 +104,15 @@ namespace Tapper
                     }
                 }
             }
-                if(Keyboard.IsKeyDown(Key.Space))
-                {
-                    window.addDrink();
-                    counter++;
-                }
+            
+            if (Keyboard.IsKeyDown(Key.Space) && !previousSpaceBarStatus)
+            {
+                window.addDrink();
+                previousSpaceBarStatus = true;
+            }if (Keyboard.IsKeyUp(Key.Space) && previousSpaceBarStatus)
+            {
+                previousSpaceBarStatus = false;
+            }
         }
     }
 }
