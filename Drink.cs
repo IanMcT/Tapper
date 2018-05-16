@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +19,10 @@ namespace Tapper
         Canvas canvas;
         MainWindow window;
         Rectangle sprite = new Rectangle();
-       public Rect boundingBox { get => box; }
+        public Rect boundingBox
+        {
+            get { return box; }
+        }
         Rect box;
         public Drink(Canvas c, MainWindow w, double xLevel, double yLevel)
         {
@@ -35,12 +38,15 @@ namespace Tapper
             Canvas.SetLeft(sprite, pos.X);
             canvas.Children.Add(sprite);
         }
-
+        public void destroy()
+        {
+            canvas.Children.Remove(sprite);
+        }
         public void update()
         {
-                pos.X -= speed;
-                Canvas.SetLeft(sprite, pos.X);
-                box.X = pos.X;
+            pos.X -= speed;
+            Canvas.SetLeft(sprite, pos.X);
+            box.X = pos.X;
         }
     }
 }
