@@ -7,25 +7,48 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Tapper
 {
+    /// <summary>
+    /// PlayerState determines what animation to run
+    /// </summary>
+    enum PlayerState {waiting, serving }
+
     class Player
     {
         //Global variables
-        Point playerPos = new Point();
-        Boolean previousSpaceBarStatus = false;
-        int counter = 0;
-        private Point point;
+        Point playerPos = new Point();//where player is on screen
+        Boolean previousSpaceBarStatus = false;//used to ensure one press per serve
+        int counter = 0;//used in various calculations
+        private Point point;//data hiding
+
+        ImageBrush sprite;//Image for the player
+        BitmapImage bitmapImage;//Image file to use
+
+        TranslateTransform translateTransform;//used for animation
+
+        PlayerState playerState = PlayerState.waiting;//starting state
+        int framesBeforeUpdate = 30;//smaller numbers to speed up animation - 30 is change frame every 0.5 seconds (just to clearly see it works)
+        int countOfFrame = 0;//keep track of frames
+        int currentFrame = 0;//what is the current frame
+        int NumberOfFrames = 4;//how many frames in the sprite sheet
+
         public Point Point
         {
             get { return point; }
         }
-            Canvas canvas;
-            MainWindow window;
-            Rectangle playerRectangle;
+        Canvas canvas;//Canvas used to get position
+        MainWindow window;//What the program runs in
+        Rectangle playerRectangle;//rectangle on the screen where the player is
 
+        /// <summary>
+        /// Constructor - runs when player created
+        /// </summary>
+        /// <param name="c">Canvas where the player will be drawn</param>
+        /// <param name="w">Window that the program runs in</param>
         public Player(Canvas c, MainWindow w)
         {
             //Generate player
@@ -34,15 +57,56 @@ namespace Tapper
             point = new Point(810, 406);
             playerPos = point;
             playerRectangle = new Rectangle();
-            playerRectangle.Fill = Brushes.White;
             playerRectangle.Height = 100;
             playerRectangle.Width = 100;
-            canvas.Children.Add(playerRectangle);
-            Canvas.SetTop(playerRectangle, point.Y);
+
+            //load image for the spritesheet
+            bitmapImage = new BitmapImage(new Uri("spritesheet.png",UriKind.Relative));
+            sprite = new ImageBrush(bitmapImage);
+
+            //set properties to ensure only one frame is drawn
+            sprite.Stretch = Stretch.None;
+            sprite.AlignmentX = AlignmentX.Left;
+            sprite.AlignmentY = AlignmentY.Top;
+            sprite.Viewport = new Rect(0, 0, 100, 100);//This is required to ensure you can look at different frames - Ian Markham - this is what we were missing.
+            translateTransform = new TranslateTransform(0, 0);
+            playerRectangle.Fill = sprite;
+            sprite.Transform = translateTransform;//Displays the first frame
+            
+            playerRectangle.Width = 100;
+         
+            canvas.Children.Add(playerRectangle);//adds the image
+            Canvas.SetTop(playerRectangle, point.Y);//positions it
             Canvas.SetLeft(playerRectangle, point.X);
         }
+
+        /// <summary>
+        /// Update runs every frame
+        /// </summary>
         public void update()
         {
+            //update animation
+            if (countOfFrame >= framesBeforeUpdate)
+            {
+                //each row has the animation frames for the state
+                if (playerState == PlayerState.waiting)
+                {
+                    countOfFrame = 0;
+                    currentFrame = (currentFrame + 1) % NumberOfFrames;
+                    sprite.Transform = new TranslateTransform(-100 * currentFrame, 0);
+                }
+                else if (playerState == PlayerState.serving) {
+                    countOfFrame = 0;
+                    currentFrame = (currentFrame + 1) % NumberOfFrames;
+                    sprite.Transform = new TranslateTransform(-100 * currentFrame, -100);
+                    if (currentFrame >= NumberOfFrames - 1)
+                    {
+                        playerState = PlayerState.waiting;//Go back to waiting after serving is done
+                    }
+                }
+            }
+            countOfFrame++;//update the count
+
             if (playerPos == new Point(630, 85)) //block on ascension to infinity
             {
                 if (Keyboard.IsKeyDown(Key.Down))
@@ -104,12 +168,21 @@ namespace Tapper
                     }
                 }
             }
-            
-            if (Keyboard.IsKeyDown(Key.Space) && !previousSpaceBarStatus)
+
+            //Serve rootbeer when space bar pressed and not currently serving
+            if (Keyboard.IsKeyDown(Key.Space) && 
+                !previousSpaceBarStatus && 
+                playerState != PlayerState.serving)
             {
-                window.addDrink();
+                window.addDrink();//could move this to animation code so it happens at end of animation
+                playerState = PlayerState.serving;
+                currentFrame = -1;
                 previousSpaceBarStatus = true;
-            }if (Keyboard.IsKeyUp(Key.Space) && previousSpaceBarStatus)
+            }
+
+            //Don't allow a press to register until the space bar is released.
+            if (Keyboard.IsKeyUp(Key.Space) && 
+                previousSpaceBarStatus)
             {
                 previousSpaceBarStatus = false;
             }
